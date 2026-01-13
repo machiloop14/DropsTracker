@@ -9,7 +9,15 @@ module.exports = {
   darkMode: "class",
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        spaceLight: ["SpaceGrotesk_300Light"],
+        spaceRegular: ["SpaceGrotesk_400Regular"],
+        spaceBold: ["SpaceGrotesk_700Bold"],
+        spaceSemibold: ["SpaceGrotesk_600SemiBold"],
+        spaceMedium: ["SpaceGrotesk_500Medium"],
+      },
+    },
   },
   plugins: [],
 };

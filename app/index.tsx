@@ -29,7 +29,9 @@ export default function Index() {
           className="w-6 h-6"
           resizeMode="cover"
         />
-        <Text className="text-white">Continue with Google</Text>
+        <Text className="text-white font-spaceSemibold">
+          Continue with Google
+        </Text>
       </Pressable>
       {/* <Pressable onPress={() => toggleColorScheme()}>
         <Text>toggle theme</Text>
