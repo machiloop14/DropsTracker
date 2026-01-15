@@ -18,7 +18,12 @@ const ThemeToggler = () => {
 
   return (
     <Pressable>
-      <MaterialIcons name="sunny" size={24} onPress={handleThemeSwitch} />
+      <MaterialIcons
+        name="sunny"
+        size={24}
+        onPress={handleThemeSwitch}
+        color={colorScheme == "dark" ? "white" : "black"}
+      />
     </Pressable>
   );
 };
