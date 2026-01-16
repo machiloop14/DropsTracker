@@ -1,0 +1,762 @@
+<div
+  class="export-wrapper"
+  style="
+    width: 375px;
+    min-height: 812px;
+    position: relative;
+    font-family: var(--font-family-body);
+    background-color: var(--background);
+  "
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=375, initial-scale=1.0" />
+      <title>Airdrop Tracker Dashboard – Light</title>
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        .export-wrapper {
+          margin: 0;
+          padding: 0;
+          background-color: var(--background);
+          color: var(--foreground);
+          font-family: var(--font-family-body);
+          font-size: 15px;
+          line-height: 1.5;
+          overflow-x: hidden;
+          display: flex;
+          flex-direction: column;
+          min-height: 812px;
+        }
+
+        .text-xs {
+          font-size: 11px;
+        }
+        .text-sm {
+          font-size: 13px;
+        }
+        .text-lg {
+          font-size: 18px;
+        }
+        .font-medium {
+          font-weight: 500;
+        }
+        .font-bold {
+          font-weight: 700;
+        }
+      </style>
+
+      <style id="layout-styles">
+        .app-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 88px; /* space for bottom nav */
+          position: relative;
+        }
+
+        header {
+          padding: 20px 20px 12px 20px;
+          padding-top: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(
+            180deg,
+            #eef2ff 0%,
+            rgba(238, 242, 255, 0.4) 60%,
+            rgba(238, 242, 255, 0) 100%
+          );
+          border-bottom: 1px solid var(--border);
+        }
+
+        .header-left {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .header-logo {
+          width: 32px;
+          height: 32px;
+          border-radius: var(--radius-md);
+          background: radial-gradient(
+            circle at 30% 0%,
+            var(--accent) 0%,
+            var(--primary) 55%,
+            #e0f2fe 100%
+          );
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--primary-foreground);
+        }
+
+        .header-title {
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: -0.3px;
+          background: linear-gradient(90deg, #0f172a, #4c1d95);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+          display: flex;
+          gap: 8px;
+        }
+
+        .icon-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: var(--radius-md);
+          background: var(--card);
+          border: 1px solid var(--border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--muted-foreground);
+        }
+
+        .stats-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          padding: 12px 20px 16px 20px;
+          background: linear-gradient(
+            180deg,
+            rgba(226, 232, 240, 0.8) 0%,
+            rgba(248, 250, 252, 0) 100%
+          );
+        }
+
+        .stat-card {
+          background: var(--card);
+          border-radius: var(--radius-lg);
+          padding: 12px 14px;
+          border: 1px solid var(--border);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .stat-label {
+          color: var(--muted-foreground);
+        }
+
+        .stat-value {
+          font-size: 22px;
+          font-weight: 700;
+          color: var(--primary);
+        }
+
+        .stat-subtext {
+          font-size: 11px;
+          color: var(--accent);
+        }
+
+        .section-header {
+          padding: 4px 20px 10px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .section-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--foreground);
+        }
+
+        .section-link {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--primary);
+        }
+
+        .airdrop-list {
+          padding: 0 20px 16px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .airdrop-card {
+          background: var(--card);
+          border-radius: var(--radius-lg);
+          padding: 14px 14px 12px 14px;
+          border: 1px solid var(--border);
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .airdrop-card::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          background: var(--status-color, var(--primary));
+        }
+
+        .card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .project-info {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .project-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: var(--muted);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .project-icon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .project-name {
+          font-size: 15px;
+          font-weight: 600;
+          color: var(--card-foreground);
+        }
+
+        .project-subtitle {
+          color: var(--muted-foreground);
+        }
+
+        .progress-ring {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: conic-gradient(
+            var(--primary) var(--percent),
+            rgba(226, 232, 240, 1) 0
+          );
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .progress-inner {
+          width: 24px;
+          height: 24px;
+          border-radius: 999px;
+          background: var(--card);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: 700;
+          color: var(--foreground);
+        }
+
+        .badge-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 8px;
+        }
+
+        .badge {
+          padding: 3px 8px;
+          border-radius: 999px;
+          font-size: 11px;
+          font-weight: 600;
+          background: rgba(6, 182, 212, 0.08);
+          color: var(--primary);
+          white-space: nowrap;
+        }
+
+        .badge.l2 {
+          background: rgba(139, 92, 246, 0.08);
+          color: var(--accent);
+        }
+        .badge.defi {
+          background: rgba(22, 163, 74, 0.08);
+          color: var(--success);
+        }
+
+        .card-stats {
+          margin-top: 10px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(226, 232, 240, 0.8);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .status-left {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+        }
+
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--muted-foreground);
+        }
+
+        .status-dot.due {
+          background: var(--warning);
+          box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+        }
+
+        .status-dot.active {
+          background: var(--success);
+        }
+        .status-dot.snoozed {
+          background: var(--muted-foreground);
+        }
+
+        .status-text-strong {
+          color: var(--foreground);
+        }
+        .status-text-muted {
+          color: var(--muted-foreground);
+        }
+
+        .freq-text {
+          font-size: 11px;
+          color: var(--muted-foreground);
+        }
+
+        .fab {
+          position: absolute;
+          right: 20px;
+          bottom: 88px;
+          width: 56px;
+          height: 56px;
+          border-radius: 999px;
+          border: none;
+          background: radial-gradient(
+            circle at 30% 0%,
+            #e0f2fe 0%,
+            var(--primary) 45%,
+            #0ea5e9 100%
+          );
+          color: var(--primary-foreground);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 14px 36px rgba(37, 99, 235, 0.35);
+          z-index: 20;
+        }
+
+        .bottom-nav {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          padding: 8px 24px 22px 24px;
+          background: rgba(255, 255, 255, 0.96);
+          border-top: 1px solid var(--border);
+          display: flex;
+          justify-content: space-between;
+          z-index: 10;
+        }
+
+        .nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          font-size: 11px;
+          font-weight: 500;
+          color: var(--muted-foreground);
+          white-space: nowrap;
+        }
+
+        .nav-item.active {
+          color: var(--primary);
+        }
+      </style>
+    </head>
+    <body>
+      <div class="app-container">
+        <header>
+          <div class="header-left">
+            <div class="header-logo">
+              <div
+                style="
+                  width: 20px;
+                  height: 20px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <iconify-icon
+                  icon="lucide:box"
+                  style="font-size: 18px; color: var(--primary-foreground)"
+                ></iconify-icon>
+              </div>
+            </div>
+            <div>
+              <div class="header-title">AirTrack</div>
+              <div class="text-xs" style="color: var(--muted-foreground)">
+                Light mode dashboard
+              </div>
+            </div>
+          </div>
+          <div class="header-actions">
+            <div class="icon-btn" data-media-type="banani-button">
+              <iconify-icon
+                icon="lucide:filter"
+                style="font-size: 18px; color: var(--muted-foreground)"
+              ></iconify-icon>
+            </div>
+            <div class="icon-btn" data-media-type="banani-button">
+              <iconify-icon
+                icon="lucide:bell"
+                style="font-size: 18px; color: var(--muted-foreground)"
+              ></iconify-icon>
+            </div>
+          </div>
+        </header>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <span class="text-xs stat-label">Tasks due</span>
+              <iconify-icon
+                icon="lucide:clock"
+                style="font-size: 16px; color: var(--warning)"
+              ></iconify-icon>
+            </div>
+            <div class="stat-value">12</div>
+            <div class="stat-subtext">+3 today</div>
+          </div>
+          <div class="stat-card">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <span class="text-xs stat-label">Potential</span>
+              <iconify-icon
+                icon="lucide:sparkles"
+                style="font-size: 16px; color: var(--accent)"
+              ></iconify-icon>
+            </div>
+            <div class="stat-value">$4.2k</div>
+            <div class="text-xs" style="color: var(--muted-foreground)">
+              Est. value
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-title">Active drops</div>
+          <div class="section-link" data-media-type="banani-button">
+            View all
+          </div>
+        </div>
+
+        <div class="airdrop-list">
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--warning)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    src="https://cryptologos.cc/logos/zksync-zk-logo.png?v=026"
+                    alt="zkSync"
+                  />
+                </div>
+                <div>
+                  <div class="project-name">zkSync Era</div>
+                  <div class="project-subtitle text-xs">Bridge &amp; swap</div>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 75%">
+                <div class="progress-inner">75</div>
+              </div>
+            </div>
+            <div class="badge-row">
+              <span class="badge l2">Layer 2</span>
+              <span class="badge">Bridge</span>
+            </div>
+            <div class="card-stats">
+              <div class="status-left">
+                <span class="status-dot due"></span>
+                <span class="status-text-strong">Due in 2h</span>
+              </div>
+              <span class="freq-text">Weekly</span>
+            </div>
+          </div>
+
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--success)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    src="https://cryptologos.cc/logos/layerzero-zro-logo.png?v=032"
+                    alt="LayerZero"
+                  />
+                </div>
+                <div>
+                  <div class="project-name">LayerZero</div>
+                  <div class="project-subtitle text-xs">
+                    Cross-chain messaging
+                  </div>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 40%">
+                <div class="progress-inner">40</div>
+              </div>
+            </div>
+            <div class="badge-row">
+              <span class="badge defi">Infra</span>
+              <span class="badge">Vote</span>
+            </div>
+            <div class="card-stats">
+              <div class="status-left">
+                <span class="status-dot active"></span>
+                <span class="status-text-muted">Done today</span>
+              </div>
+              <span class="freq-text">Daily</span>
+            </div>
+          </div>
+
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--muted-foreground)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    src="https://cryptologos.cc/logos/scroll-scroll-logo.png?v=032"
+                    alt="Scroll"
+                  />
+                </div>
+                <div>
+                  <div class="project-name">Scroll</div>
+                  <div class="project-subtitle text-xs">Deploy contract</div>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 15%">
+                <div class="progress-inner">15</div>
+              </div>
+            </div>
+            <div class="badge-row">
+              <span class="badge l2">zkEVM</span>
+              <span class="badge">Testnet</span>
+            </div>
+            <div class="card-stats">
+              <div class="status-left">
+                <span class="status-dot snoozed"></span>
+                <span class="status-text-muted">Snoozed (2d)</span>
+              </div>
+              <span class="freq-text">Monthly</span>
+            </div>
+          </div>
+
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--primary)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    src="https://cryptologos.cc/logos/eigenlayer-eigen-logo.png?v=032"
+                    alt="EigenLayer"
+                  />
+                </div>
+                <div>
+                  <div class="project-name">EigenLayer</div>
+                  <div class="project-subtitle text-xs">Restaking</div>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 90%">
+                <div class="progress-inner">90</div>
+              </div>
+            </div>
+            <div class="badge-row">
+              <span class="badge defi">DeFi</span>
+              <span class="badge">Stake</span>
+            </div>
+            <div class="card-stats">
+              <div class="status-left">
+                <span class="status-dot active"></span>
+                <span class="status-text-strong">Due tomorrow</span>
+              </div>
+              <span class="freq-text">Bi-weekly</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="fab" data-media-type="banani-button">
+          <div
+            style="
+              width: 28px;
+              height: 28px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <iconify-icon
+              icon="lucide:plus"
+              style="font-size: 26px; color: var(--primary-foreground)"
+            ></iconify-icon>
+          </div>
+        </button>
+
+        <div class="bottom-nav">
+          <div class="nav-item active" data-media-type="banani-button">
+            <div
+              style="
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <iconify-icon
+                icon="lucide:layout-grid"
+                style="font-size: 22px; color: currentColor"
+              ></iconify-icon>
+            </div>
+            <span>Dash</span>
+          </div>
+          <div class="nav-item" data-media-type="banani-button">
+            <div
+              style="
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <iconify-icon
+                icon="lucide:compass"
+                style="font-size: 22px; color: currentColor"
+              ></iconify-icon>
+            </div>
+            <span>Discover</span>
+          </div>
+          <div class="nav-item" data-media-type="banani-button">
+            <div
+              style="
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <iconify-icon
+                icon="lucide:bell"
+                style="font-size: 22px; color: currentColor"
+              ></iconify-icon>
+            </div>
+            <span>Alerts</span>
+          </div>
+          <div class="nav-item" data-media-type="banani-button">
+            <div
+              style="
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <iconify-icon
+                icon="lucide:settings"
+                style="font-size: 22px; color: currentColor"
+              ></iconify-icon>
+            </div>
+            <span>Settings</span>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+  <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --background: #f3f4ff;
+      --foreground: #020617;
+      --border: #e2e8f0;
+      --input: #ffffff;
+      --primary: #06b6d4;
+      --primary-foreground: #f9fafb;
+      --secondary: #e5e7eb;
+      --secondary-foreground: #4b5563;
+      --muted: #f1f5f9;
+      --muted-foreground: #6b7280;
+      --success: #16a34a;
+      --success-foreground: #ecfdf3;
+      --accent: #8b5cf6;
+      --accent-foreground: #f9fafb;
+      --destructive: #ef4444;
+      --destructive-foreground: #fef2f2;
+      --warning: #f59e0b;
+      --warning-foreground: #fffbeb;
+      --card: #ffffff;
+      --card-foreground: #020617;
+      --sidebar: #e5e7eb;
+      --sidebar-foreground: #4b5563;
+      --sidebar-primary: #d1d5db;
+      --sidebar-primary-foreground: #111827;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 20px;
+      --font-family-body: Inter;
+    }
+  </style>
+</div>

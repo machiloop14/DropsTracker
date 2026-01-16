@@ -1,0 +1,734 @@
+<div
+  class="export-wrapper"
+  style="
+    width: 375px;
+    min-height: 812px;
+    position: relative;
+    font-family: var(--font-family-body);
+    background-color: var(--background);
+  "
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=375, initial-scale=1.0" />
+      <title>Airdrop Tracker Dashboard</title>
+      <style>
+        :root {
+          --background: #0b1121;
+          --foreground: #f8fafc;
+          --card: #162032;
+          --card-foreground: #f1f5f9;
+          --primary: #22d3ee;
+          --primary-foreground: #020617;
+          --secondary: #1e293b;
+          --secondary-foreground: #94a3b8;
+          --accent: #a855f7;
+          --accent-foreground: #faf5ff;
+          --success: #34d399;
+          --warning: #facc15;
+          --destructive: #f87171;
+          --border: #334155;
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 24px;
+          --font-family-body: "Inter", system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        .export-wrapper {
+          margin: 0;
+          padding: 0;
+          background-color: var(--background);
+          color: var(--foreground);
+          font-family: var(--font-family-body);
+          font-size: 15px;
+          line-height: 1.5;
+          overflow-x: hidden;
+        }
+
+        /* Helper Classes */
+        .flex {
+          display: flex;
+        }
+
+        .flex-col {
+          flex-direction: column;
+        }
+
+        .items-center {
+          align-items: center;
+        }
+
+        .justify-between {
+          justify-content: space-between;
+        }
+
+        .gap-1 {
+          gap: 4px;
+        }
+        .gap-2 {
+          gap: 8px;
+        }
+        .gap-3 {
+          gap: 12px;
+        }
+        .gap-4 {
+          gap: 16px;
+        }
+
+        .p-4 {
+          padding: 16px;
+        }
+        .px-4 {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        .py-2 {
+          padding-top: 8px;
+          padding-bottom: 8px;
+        }
+        .py-3 {
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        .text-sm {
+          font-size: 13px;
+        }
+        .text-xs {
+          font-size: 11px;
+        }
+        .text-lg {
+          font-size: 18px;
+        }
+        .font-medium {
+          font-weight: 500;
+        }
+        .font-bold {
+          font-weight: 700;
+        }
+        .text-muted {
+          color: var(--secondary-foreground);
+        }
+        .text-primary {
+          color: var(--primary);
+        }
+        .text-success {
+          color: var(--success);
+        }
+        .text-white {
+          color: white;
+        }
+
+        .rounded-full {
+          border-radius: 9999px;
+        }
+        .rounded-lg {
+          border-radius: var(--radius-lg);
+        }
+        .rounded-md {
+          border-radius: var(--radius-md);
+        }
+
+        .bg-card {
+          background-color: var(--card);
+        }
+        .bg-secondary {
+          background-color: var(--secondary);
+        }
+        .bg-primary {
+          background-color: var(--primary);
+        }
+      </style>
+
+      <style id="layout-styles">
+        .app-container {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          padding-bottom: 80px; /* Space for nav */
+          position: relative;
+        }
+
+        /* Header */
+        header {
+          padding: 16px 20px;
+          padding-top: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(
+            180deg,
+            rgba(11, 17, 33, 1) 0%,
+            rgba(11, 17, 33, 0) 100%
+          );
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          backdrop-filter: blur(8px);
+        }
+
+        .header-title {
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: -0.5px;
+          background: linear-gradient(90deg, #fff, #94a3b8);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .icon-btn {
+          width: 40px;
+          height: 40px;
+          border-radius: var(--radius-md);
+          background: var(--secondary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid var(--border);
+          color: var(--foreground);
+        }
+
+        /* Stats Row */
+        .stats-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          padding: 0 20px 20px 20px;
+        }
+
+        .stat-card {
+          background: var(--card);
+          border-radius: var(--radius-lg);
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-value {
+          font-size: 24px;
+          font-weight: 700;
+          color: var(--primary);
+        }
+
+        /* Section Header */
+        .section-header {
+          padding: 0 20px 12px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        /* Airdrop List */
+        .airdrop-list {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          padding: 0 20px;
+        }
+
+        .airdrop-card {
+          background: var(--card);
+          border-radius: var(--radius-lg);
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          border: 1px solid var(--border);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .airdrop-card::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: var(--status-color, var(--primary));
+        }
+
+        .card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        .project-info {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        }
+
+        .project-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+          background: var(--secondary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .project-icon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 8px;
+          border-radius: 6px;
+          font-size: 11px;
+          font-weight: 600;
+          background: rgba(34, 211, 238, 0.1);
+          color: var(--primary);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .badge.l2 {
+          background: rgba(168, 85, 247, 0.15);
+          color: #c084fc;
+        }
+        .badge.defi {
+          background: rgba(52, 211, 153, 0.15);
+          color: #34d399;
+        }
+
+        .card-stats {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 12px;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-ring {
+          position: relative;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: conic-gradient(
+            var(--primary) var(--percent),
+            var(--secondary) 0
+          );
+          border-radius: 50%;
+        }
+
+        .progress-inner {
+          width: 26px;
+          height: 26px;
+          background: var(--card);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 9px;
+          font-weight: 700;
+          color: var(--foreground);
+        }
+
+        /* FAB */
+        .fab {
+          position: fixed;
+          bottom: 90px;
+          right: 20px;
+          width: 56px;
+          height: 56px;
+          border-radius: 28px;
+          background: var(--primary);
+          color: var(--primary-foreground);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 20px rgba(34, 211, 238, 0.4);
+          border: none;
+          z-index: 50;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background: rgba(22, 32, 50, 0.95);
+          backdrop-filter: blur(12px);
+          border-top: 1px solid var(--border);
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          padding: 8px 0 24px 0;
+          z-index: 40;
+        }
+
+        .nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          color: var(--secondary-foreground);
+          font-size: 10px;
+          font-weight: 500;
+        }
+
+        .nav-item.active {
+          color: var(--primary);
+        }
+
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: var(--secondary-foreground);
+          margin-right: 6px;
+        }
+        .status-dot.due {
+          background-color: var(--warning);
+          box-shadow: 0 0 8px var(--warning);
+        }
+        .status-dot.active {
+          background-color: var(--success);
+        }
+        .status-dot.snoozed {
+          background-color: var(--secondary-foreground);
+        }
+      </style>
+    </head>
+    <body>
+      <div class="app-container">
+        <!-- Header -->
+        <header>
+          <div class="flex items-center gap-3">
+            <div
+              style="
+                width: 32px;
+                height: 32px;
+                background: var(--primary);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: black;
+              "
+            >
+              <iconify-icon
+                icon="lucide:box"
+                style="font-size: 20px"
+              ></iconify-icon>
+            </div>
+            <span class="header-title">AirTrack</span>
+          </div>
+          <div class="flex gap-2">
+            <div class="icon-btn" data-media-type="banani-button">
+              <iconify-icon
+                icon="lucide:filter"
+                style="font-size: 20px"
+              ></iconify-icon>
+            </div>
+            <div class="icon-btn" data-media-type="banani-button">
+              <iconify-icon
+                icon="lucide:bell"
+                style="font-size: 20px"
+              ></iconify-icon>
+            </div>
+          </div>
+        </header>
+
+        <!-- Stats Summary -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Tasks Due</span>
+              <iconify-icon
+                icon="lucide:clock"
+                style="font-size: 16px; color: var(--warning)"
+              ></iconify-icon>
+            </div>
+            <div class="stat-value">12</div>
+            <div class="text-xs text-success">+3 today</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Potential</span>
+              <iconify-icon
+                icon="lucide:sparkles"
+                style="font-size: 16px; color: var(--accent)"
+              ></iconify-icon>
+            </div>
+            <div class="stat-value">$4.2k</div>
+            <div class="text-xs text-muted">Est. Value</div>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+          <span class="text-lg font-bold">Active Drops</span>
+          <span
+            class="text-sm text-primary font-medium"
+            data-media-type="banani-button"
+            >View All</span
+          >
+        </div>
+
+        <!-- List -->
+        <div class="airdrop-list">
+          <!-- Card 1: Urgent -->
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--warning)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    data-aspect-ratio="1:1"
+                    data-query="zksync crypto logo minimalist"
+                    src="https://storage.googleapis.com/banani-generated-images/generated-images/42df303f-665a-463d-bf78-a044484c921c.jpg"
+                    alt="zkSync"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white">zkSync Era</span>
+                  <span class="text-xs text-muted">Bridge &amp; Swap</span>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 75%">
+                <div class="progress-inner">75</div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 mt-2">
+              <span class="badge l2">Layer 2</span>
+              <span class="badge">Bridge</span>
+            </div>
+
+            <div class="card-stats">
+              <div class="flex items-center">
+                <div class="status-dot due"></div>
+                <span class="text-xs font-medium text-white">Due in 2h</span>
+              </div>
+              <span class="text-xs text-muted">Weekly</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Completed today -->
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--success)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    data-aspect-ratio="1:1"
+                    data-query="layerzero crypto logo abstract"
+                    src="https://storage.googleapis.com/banani-generated-images/generated-images/deb75725-c503-4f5c-a5d4-893e0217f7e6.jpg"
+                    alt="LayerZero"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white">LayerZero</span>
+                  <span class="text-xs text-muted">Cross-chain msg</span>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 40%">
+                <div class="progress-inner">40</div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 mt-2">
+              <span class="badge defi">Infra</span>
+              <span class="badge">Vote</span>
+            </div>
+
+            <div class="card-stats">
+              <div class="flex items-center">
+                <div class="status-dot active"></div>
+                <span class="text-xs font-medium text-muted">Done today</span>
+              </div>
+              <span class="text-xs text-muted">Daily</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Snoozed -->
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--secondary-foreground)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    data-aspect-ratio="1:1"
+                    data-query="scroll zk rollup logo"
+                    src="https://storage.googleapis.com/banani-generated-images/generated-images/6867d6dc-2fd5-4054-94ba-e877154542b1.jpg"
+                    alt="Scroll"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white">Scroll</span>
+                  <span class="text-xs text-muted">Deploy Contract</span>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 15%">
+                <div class="progress-inner">15</div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 mt-2">
+              <span class="badge l2">zkEVM</span>
+              <span class="badge">Testnet</span>
+            </div>
+
+            <div class="card-stats">
+              <div class="flex items-center">
+                <div class="status-dot snoozed"></div>
+                <span class="text-xs font-medium text-muted">Snoozed (2d)</span>
+              </div>
+              <span class="text-xs text-muted">Monthly</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Normal -->
+          <div
+            class="airdrop-card"
+            style="--status-color: var(--primary)"
+            data-media-type="banani-button"
+          >
+            <div class="card-top">
+              <div class="project-info">
+                <div class="project-icon">
+                  <img
+                    data-aspect-ratio="1:1"
+                    data-query="eigenlayer crypto logo"
+                    src="https://storage.googleapis.com/banani-generated-images/generated-images/9ef52a7a-bee0-41d9-8979-90fe3f899f9c.jpg"
+                    alt="EigenLayer"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white">EigenLayer</span>
+                  <span class="text-xs text-muted">Restaking</span>
+                </div>
+              </div>
+              <div class="progress-ring" style="--percent: 90%">
+                <div class="progress-inner">90</div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 mt-2">
+              <span class="badge defi">DeFi</span>
+              <span class="badge">Stake</span>
+            </div>
+
+            <div class="card-stats">
+              <div class="flex items-center">
+                <div class="status-dot active"></div>
+                <span class="text-xs font-medium text-white">Due Tomorrow</span>
+              </div>
+              <span class="text-xs text-muted">Bi-weekly</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Action Button -->
+      <button class="fab" data-media-type="banani-button">
+        <iconify-icon icon="lucide:plus" style="font-size: 28px"></iconify-icon>
+      </button>
+
+      <!-- Bottom Navigation -->
+      <div class="bottom-nav">
+        <div class="nav-item active" data-media-type="banani-button">
+          <iconify-icon
+            icon="lucide:layout-grid"
+            style="font-size: 24px"
+          ></iconify-icon>
+          <span>Dash</span>
+        </div>
+        <div class="nav-item" data-media-type="banani-button">
+          <iconify-icon
+            icon="lucide:compass"
+            style="font-size: 24px"
+          ></iconify-icon>
+          <span>Discover</span>
+        </div>
+        <div class="nav-item" data-media-type="banani-button">
+          <iconify-icon
+            icon="lucide:bell"
+            style="font-size: 24px"
+          ></iconify-icon>
+          <span>Alerts</span>
+        </div>
+        <div class="nav-item" data-media-type="banani-button">
+          <iconify-icon
+            icon="lucide:settings"
+            style="font-size: 24px"
+          ></iconify-icon>
+          <span>Settings</span>
+        </div>
+      </div>
+    </body>
+  </html>
+  <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --background: #0b1020;
+      --foreground: #e6f0ff;
+      --border: #00000014;
+      --input: #0f1726;
+      --primary: #00ffd1;
+      --primary-foreground: #071724;
+      --secondary: #2b1f4a;
+      --secondary-foreground: #e6e9ff;
+      --muted: #111827;
+      --muted-foreground: #9aa7c7;
+      --success: #21e6a2;
+      --success-foreground: #052017;
+      --accent: #7c5cff;
+      --accent-foreground: #ffffff;
+      --destructive: #ff557a;
+      --destructive-foreground: #2a0a12;
+      --warning: #ffd166;
+      --warning-foreground: #2b1f00;
+      --card: #0f1726;
+      --card-foreground: #e6f0ff;
+      --sidebar: #081022;
+      --sidebar-foreground: #9fb7d9;
+      --sidebar-primary: #12203a;
+      --sidebar-primary-foreground: #00ffd1;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --font-family-body: Inter;
+    }
+  </style>
+</div>

@@ -1,3 +1,4 @@
+import ThemeToggler from "@/components/themeToggler";
 import { signInWithGoogle } from "@/lib/signInWithGoogle";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
@@ -15,6 +16,7 @@ export default function Index() {
       // TODO: send idToken to your backend
       // router.replace("/(tabs)")
       console.log("log in successful");
+      router.push("/dashboard");
     } catch (err) {
       console.log(err);
     }
@@ -80,9 +82,9 @@ export default function Index() {
           Privacy Policy.
         </Text>
       </View>
-      {/* <View className="absolute top-12 right-8">
+      <View className="absolute top-12 right-8">
         <ThemeToggler />
-      </View> */}
+      </View>
       <StatusBar style="auto" />
     </View>
   );
