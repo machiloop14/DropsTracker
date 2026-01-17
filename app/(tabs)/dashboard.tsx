@@ -1,16 +1,67 @@
+import AirdropCard from "@/components/airdropCard";
 import ThemeToggler from "@/components/themeToggler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
+import { FlatList, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Dashboard = () => {
   const insets = useSafeAreaInsets();
   const { colorScheme } = useColorScheme();
+
+  const DATA = [
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "zkSync Era",
+      type: "Bridge & Swap",
+      status: "Due in 2h",
+      percentage: 75,
+      frequency: "weekly",
+    },
+    {
+      id: "cd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "Marios",
+      type: "Layer 1",
+      status: "Due in 4h",
+      percentage: 52,
+      frequency: "Bi-weekly",
+    },
+    {
+      id: "dd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "Trove",
+      type: "Testnet",
+      status: "Due in 4h",
+      percentage: 26,
+      frequency: "weekly",
+    },
+    {
+      id: "ed7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "Grass",
+      type: "Depin",
+      status: "Due in 1d",
+      percentage: 69,
+      frequency: "monthly",
+    },
+    {
+      id: "fd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "Dawn",
+      type: "Depin",
+      status: "Due in 1h",
+      percentage: 96,
+      frequency: "Daily",
+    },
+    {
+      id: "gd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      name: "Xantha",
+      type: "Telegram",
+      status: "Due in 3h",
+      percentage: 80,
+      frequency: "Daily",
+    },
+  ];
 
   return (
     <View
@@ -89,50 +140,19 @@ const Dashboard = () => {
             View all
           </Text>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="mt-4 bg-white dark:bg-[#0f1726] border-l-2 border-[#f59e0b] px-2.5 rounded-xl">
-            <View className="flex-row justify-between items-center py-4">
-              <View>
-                <Text className="font-spaceBold text-base text-[#020617] dark:text-white">
-                  zkSync Era
-                </Text>
-                <View className="bg-[#06b6d414] dark:bg-[##102b3a] p-1 rounded-md font-spaceSemibold">
-                  <Text
-                    className="font-spaceRegular text-xs text-[#06b6d4]
-                  dark:text-[#00ffd1] uppercase"
-                  >
-                    Bridge & Swap
-                  </Text>
-                </View>
-              </View>
-              <AnimatedCircularProgress
-                size={30}
-                width={4}
-                fill={75}
-                rotation={0}
-                tintColor={colorScheme == "dark" ? "#00ffd1" : "#06b6d4"}
-                backgroundColor={colorScheme == "dark" ? "#2b1f4a" : "#e2e8f0"}
-              >
-                {() => (
-                  <Text className="font-spaceBold text-[10px] text-[#020617] dark:text-[#e6f0ff] ">
-                    {75}
-                  </Text>
-                )}
-              </AnimatedCircularProgress>
-            </View>
-            <View className="flex-row justify-between py-2.5 border-t border-[#e2e8f0cc]">
-              <View className="flex-row gap-2 items-center">
-                <View className="w-2 h-2 bg-[#f49e0b] rounded-full"></View>
-                <Text className="text-base font-spaceRegular text-[#020617] dark:text-white">
-                  Due in 2h
-                </Text>
-              </View>
-              <Text className="font-spaceRegular text-xs text-[#6b7280] dark:text-[#e6e9ff]">
-                Weekly
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
+        <View className="flex-1">
+          {/* flatlist */}
+          <FlatList
+            data={DATA}
+            renderItem={({ item, index }) => (
+              <AirdropCard item={item} index={index} />
+            )}
+            showsVerticalScrollIndicator={false}
+            className="mb-2"
+          />
+
+          {/* flatlist */}
+        </View>
       </View>
       {/* status bar */}
       <StatusBar style="auto" />
