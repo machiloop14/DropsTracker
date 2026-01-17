@@ -2,15 +2,17 @@ import AirdropCard from "@/components/airdropCard";
 import ThemeToggler from "@/components/themeToggler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Dashboard = () => {
   const insets = useSafeAreaInsets();
   const { colorScheme } = useColorScheme();
+  const router = useRouter();
 
   const DATA = [
     {
@@ -154,6 +156,12 @@ const Dashboard = () => {
           {/* flatlist */}
         </View>
       </View>
+      <Pressable
+        className="w-12 h-12 bg-[#09b0dc] dark:bg-[#00ffd1] rounded-full items-center justify-center absolute bottom-4 right-4"
+        onPress={() => router.push("/submit")}
+      >
+        <MaterialCommunityIcons name="plus" size={30} color="black" />
+      </Pressable>
       {/* status bar */}
       <StatusBar style="auto" />
     </View>

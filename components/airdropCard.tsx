@@ -55,7 +55,7 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
           </Text>
         </View>
         <Text className="font-spaceRegular text-xs text-[#6b7280] dark:text-[#e6e9ff]">
-          {item.frequency}
+          {item.frequency.toUpperCase()}
         </Text>
       </View>
     </View>
