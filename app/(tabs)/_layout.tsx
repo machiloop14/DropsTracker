@@ -16,6 +16,7 @@ const TabsLayout = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: tabBg,
+          borderColor: "transparent",
         },
       }}
     >
