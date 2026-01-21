@@ -10,6 +10,7 @@ type props = {
   fieldStyles?: string;
   textbox?: boolean;
   iconName?: any;
+  keyboardType?: any;
   required?: boolean;
   control: Control<any>;
 };
@@ -23,10 +24,11 @@ const FormTextInput = ({
   iconName,
   textbox,
   required,
+  keyboardType,
 }: props) => {
   return (
     <View>
-      <View className="flex-row items-center gap-1">
+      <View className="flex-row items-center gap-1.5">
         <Text className="uppercase font-spaceSemibold text-[#8b93b8] text-sm">
           {label}
         </Text>
@@ -60,6 +62,7 @@ const FormTextInput = ({
                 autoCorrect={false}
                 className={`outline-none font-spaceMedium flex-auto text-[#0b1330]  ${fieldStyles}  ${textbox ? "lowercase" : "capitalize"} `}
                 value={value}
+                keyboardType={keyboardType}
               />
             </View>
             {error && <Text className="text-red-500">{error.message}</Text>}
