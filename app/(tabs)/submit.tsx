@@ -44,7 +44,7 @@ const Submit = () => {
   return (
     <View className="flex-1 bg-[#f7f9ff] dark:bg-[#0b1020]">
       <View
-        className="flex-row gap-4 pb-4 items-center border-b border-[#e5e6e8] px-5 bg-[#f8fafc] dark:bg-[#0f1026]"
+        className="flex-row gap-4 pb-4 items-center border-b border-[#e5e6e8] px-5 bg-[#f8fafc] dark:bg-[#0f1026] dark:border-b-0"
         style={{ paddingTop: insets.top + 20 }}
       >
         <Pressable
@@ -88,7 +88,7 @@ const Submit = () => {
               placeholder="0x..."
             />
 
-            <View className="flex-row gap-4">
+            <View className="flex-row gap-4 items-center">
               <FormDateTimeInput
                 control={control}
                 name="startDate"
@@ -104,7 +104,7 @@ const Submit = () => {
               />
             </View>
 
-            <View className="flex-row gap-4 items-center">
+            <View className="flex-row gap-4 mt-1">
               <FormDateTimeInput
                 control={control}
                 name="startAlarm"
@@ -117,7 +117,7 @@ const Submit = () => {
                 label="Repeat"
                 control={control}
                 keyboardType="numeric"
-                fieldStyles="h-10"
+                // fieldStyles="h-10"
                 placeholder="No of hours"
               />
             </View>
@@ -134,7 +134,7 @@ const Submit = () => {
           </View>
           <Pressable
             onPress={handleSubmit(onSubmit)}
-            className="bg-[#00e5c4] py-4 rounded-xl mb-4 mt-2"
+            className="bg-[#00e5c4] dark:bg-[#00f0c8] py-4 rounded-xl mb-4 mt-2"
           >
             <Text className="text-center text-[#001018] font-spaceBold text-lg">
               Save Airdrop

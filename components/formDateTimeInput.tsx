@@ -39,7 +39,7 @@ const FormDateTimeInput = ({ label, name, control, mode, required }: props) => {
               </View>
               <Pressable
                 onPress={() => setOpen(true)}
-                className="flex-row gap-2 items-center border border-[#ebebeb] bg-white dark:bg-[#0e1626] dark:border-0 py-4  px-3 rounded-xl"
+                className="flex-row gap-2 items-center border border-[#ebebeb] bg-white dark:bg-[#0e1626] dark:border-0 py-4  px-3 mt-2 rounded-xl"
               >
                 <MaterialCommunityIcons
                   name="calendar-blank-outline"
