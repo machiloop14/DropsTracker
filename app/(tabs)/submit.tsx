@@ -1,11 +1,13 @@
 import FormDateTimeInput from "@/components/formDateTimeInput";
 import FormPickerInput from "@/components/formPickerInput";
 import FormTextInput from "@/components/formTextInput";
+import ThemeToggler from "@/components/themeToggler";
 import { airdropFormType, airdropSchema } from "@/schemas/airdropSchema";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "nativewind";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -15,6 +17,8 @@ import data from "../../data/category.json";
 const Submit = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  const { colorScheme } = useColorScheme();
 
   const {
     control,
@@ -38,18 +42,24 @@ const Submit = () => {
   const onSubmit = (data: airdropFormType) => console.log(data);
 
   return (
-    <View className="flex-1 bg-[#f7f9ff]">
+    <View className="flex-1 bg-[#f7f9ff] dark:bg-[#0b1020]">
       <View
-        className="flex-row gap-4 pb-4 items-center border-b border-[#e5e6e8] px-5 bg-[#f8fafc]"
+        className="flex-row gap-4 pb-4 items-center border-b border-[#e5e6e8] px-5 bg-[#f8fafc] dark:bg-[#0f1026]"
         style={{ paddingTop: insets.top + 20 }}
       >
         <Pressable
-          className="px-3 py-3 bg-white rounded-lg shadow-black elevation-sm"
+          className="px-3 py-3 bg-white dark:bg-[#0e1626] rounded-lg shadow-black elevation-sm"
           onPress={() => router.push("/dashboard")}
         >
-          <MaterialCommunityIcons name="arrow-left" size={24} />
+          <MaterialCommunityIcons
+            name="arrow-left"
+            size={24}
+            color={colorScheme == "dark" ? "#e6f0ff" : "black"}
+          />
         </Pressable>
-        <Text className="font-spaceBold text-2xl">Add Airdrop</Text>
+        <Text className="font-spaceBold text-2xl dark:text-[#e6f0ff]">
+          Add Airdrop
+        </Text>
       </View>
       <View className="flex-1 pt-6 px-5 pb-3">
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -110,13 +120,6 @@ const Submit = () => {
                 fieldStyles="h-10"
                 placeholder="No of hours"
               />
-
-              {/* <FormDateTimeInput
-                control={control}
-                name="endAlarm"
-                label="end alarm"
-                mode="date"
-              /> */}
             </View>
 
             <FormTextInput
@@ -140,7 +143,7 @@ const Submit = () => {
         </ScrollView>
       </View>
 
-      {/* <ThemeToggler /> */}
+      <ThemeToggler />
       <StatusBar style="auto" />
     </View>
   );
