@@ -32,7 +32,7 @@ const FormPickerInput = ({
         <Text className="uppercase font-spaceSemibold text-[#8b93b8] text-sm">
           {label}
         </Text>
-        {required && <Text className="text-red-500">*</Text>}
+        {required && <Text className="text-red-500 font-spaceRegular">*</Text>}
       </View>
       <Controller
         name={name}
@@ -76,7 +76,11 @@ const FormPickerInput = ({
                 )}
               />
             </View>
-            {error && <Text className="text-red-500">{error.message}</Text>}
+            {error && (
+              <Text className="text-red-500 font-spaceRegular">
+                {error.message}
+              </Text>
+            )}
           </>
         )}
       />

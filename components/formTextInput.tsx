@@ -27,12 +27,12 @@ const FormTextInput = ({
   keyboardType,
 }: props) => {
   return (
-    <View>
+    <View className="flex-1">
       <View className="flex-row items-center gap-1.5">
         <Text className="uppercase font-spaceSemibold text-[#8b93b8] text-sm">
           {label}
         </Text>
-        {required && <Text className="text-red-500">*</Text>}
+        {required && <Text className="text-red-500 font-spaceRegular">*</Text>}
       </View>
       <Controller
         name={name}
@@ -65,7 +65,11 @@ const FormTextInput = ({
                 keyboardType={keyboardType}
               />
             </View>
-            {error && <Text className="text-red-500">{error.message}</Text>}
+            {error && (
+              <Text className="text-red-500 font-spaceRegular">
+                {error.message}
+              </Text>
+            )}
           </View>
         )}
       />
