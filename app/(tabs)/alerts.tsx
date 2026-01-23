@@ -17,11 +17,13 @@ const Alerts = () => {
   return (
     <View
       style={{ paddingTop: insets.top + 20 }}
-      className="flex-1 px-5 bg-[#f7f9ff]"
+      className="flex-1 px-5 bg-[#f7f9ff] dark:bg-[#0b1020]"
     >
       {/* header */}
-      <View className="border border-[#eef0f6] pb-4">
-        <Text className="font-spaceBold text-2xl">Reminders</Text>
+      <View className="border-b border-[#ebebeb] pb-4 dark:border-b-0 ">
+        <Text className="font-spaceBold text-2xl dark:text-[#e6f0ff]">
+          Reminders
+        </Text>
       </View>
       {/* header */}
 
@@ -29,23 +31,23 @@ const Alerts = () => {
       <View className="flex-1">
         {/* filter section */}
         <View className="flex flex-row justify-between my-6">
-          <Pressable className="bg-[#00e5c4] px-4 py-2 rounded-full ">
-            <Text className="font-spaceSemibold text-[#001018] text-sm">
+          <Pressable className="bg-[#00e5c4] dark:bg-[#00ffd1] px-4 py-2 rounded-full ">
+            <Text className="font-spaceSemibold text-[#0b1330] text-sm">
               All
             </Text>
           </Pressable>
-          <Pressable className="bg-white border border-[#ebebeb]  px-4 py-2 rounded-full  ">
-            <Text className="text-[#8b93b8] font-spaceSemibold text-sm ">
+          <Pressable className="bg-white dark:bg-[#0f1726] dark:border-0 border border-[#ebebeb]  px-4 py-2 rounded-full  ">
+            <Text className="text-[#8b93b8] dark:text-[#9aa7c7] font-spaceSemibold text-sm ">
               Due Soon
             </Text>
           </Pressable>
-          <Pressable className="bg-white border border-[#ebebeb]  px-4 py-2 rounded-full  ">
-            <Text className="text-[#8b93b8] font-spaceSemibold text-sm ">
+          <Pressable className="bg-white dark:bg-[#0f1726] dark:border-0 border border-[#ebebeb]  px-4 py-2 rounded-full  ">
+            <Text className="text-[#8b93b8] dark:text-[#9aa7c7]  font-spaceSemibold text-sm ">
               Overdue
             </Text>
           </Pressable>
-          <Pressable className="bg-white border border-[#ebebeb]  px-4 py-2 rounded-full  ">
-            <Text className="text-[#8b93b8] font-spaceSemibold text-sm ">
+          <Pressable className="bg-white dark:bg-[#0f1726] dark:border-0 border border-[#ebebeb]  px-4 py-2 rounded-full   ">
+            <Text className="text-[#8b93b8] dark:text-[#9aa7c7]  font-spaceSemibold text-sm ">
               Completed
             </Text>
           </Pressable>
@@ -57,7 +59,7 @@ const Alerts = () => {
           ListHeaderComponent={
             <>
               {attentionReminders.length > 0 && (
-                <Text className="uppercase text-[#8b93b8] font-medium text-sm ">
+                <Text className="uppercase text-[#8b93b8] font-medium text-sm font-spaceBold dark:text-white ">
                   needs attention
                 </Text>
               )}
@@ -69,7 +71,7 @@ const Alerts = () => {
               <>
                 {upcomingReminders.length > 0 && (
                   <>
-                    <Text className="uppercase text-[#8b93b8] font-medium text-sm mt-2">
+                    <Text className="uppercase text-[#8b93b8] font-medium text-sm mt-2 font-spaceBold dark:text-white ">
                       upcoming
                     </Text>
                     <FlatList
