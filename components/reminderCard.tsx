@@ -52,7 +52,7 @@ const ReminderCard = ({ data }: ReminderProps) => {
             snooze
           </Text>
         </Pressable>
-        <Pressable className="items-center py-2.5 flex-1 bg-[#00e5c4] dark:bg-[#00ffd1] rounded-lg">
+        <Pressable className="items-center py-2.5 flex-1 bg-[#1bcfb4] dark:bg-[#00ffd1] rounded-lg">
           <Text className="font-spaceSemibold text-base text-[#0b1330]  capitalize">
             mark done
           </Text>

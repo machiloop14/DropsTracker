@@ -134,7 +134,7 @@ const Submit = () => {
           </View>
           <Pressable
             onPress={handleSubmit(onSubmit)}
-            className="bg-[#00e5c4] dark:bg-[#00f0c8] py-4 rounded-xl mb-4 mt-2"
+            className="bg-[#1bcfb4] dark:bg-[#00ffd1] py-4 rounded-xl mb-4 mt-2"
           >
             <Text className="text-center text-[#001018] font-spaceBold text-lg">
               Save Airdrop

@@ -21,7 +21,7 @@ const Alerts = () => {
     >
       {/* header */}
       <View className="border-b border-[#ebebeb] pb-4 dark:border-b-0 ">
-        <Text className="font-spaceBold text-2xl dark:text-[#e6f0ff]">
+        <Text className=" font-spaceBold text-2xl dark:text-[#e6f0ff]">
           Reminders
         </Text>
       </View>
@@ -31,7 +31,7 @@ const Alerts = () => {
       <View className="flex-1">
         {/* filter section */}
         <View className="flex flex-row justify-between my-6">
-          <Pressable className="bg-[#00e5c4] dark:bg-[#00ffd1] px-4 py-2 rounded-full ">
+          <Pressable className="bg-[#1bcfb4] dark:bg-[#00ffd1] px-4 py-2 rounded-full ">
             <Text className="font-spaceSemibold text-[#0b1330] text-sm">
               All
             </Text>

@@ -68,19 +68,20 @@ const Dashboard = () => {
   return (
     <View
       style={{ paddingTop: insets.top }}
-      className="bg-[#f2f3fe] dark:bg-[#0b1020] flex-1 px-5"
+      className="bg-[#f7f9ff] dark:bg-[#0b1020] flex-1 px-5"
     >
       {/* header */}
       <View className="flex flex-row justify-between items-center pt-8 pb-2">
         <View className="flex-row gap-2 items-center">
-          <View className="bg-[#06b6d4] dark:bg-[#00ffd1] px-[5px] py-[5px] rounded-md">
+          <View className="bg-[#1bcfb4] dark:bg-[#00ffd1] px-[5px] py-[5px] rounded-md">
             <MaterialCommunityIcons
               name="cube-outline"
               size={18}
-              color={colorScheme == "dark" ? "black" : "white"}
+              // color={colorScheme == "dark" ? "black" : "white"}
+              color="black"
             />
           </View>
-          <Text className="text-[#0f1721] dark:text-white font-spaceBold text-2xl">
+          <Text className=" dark:text-[#e6f0ff] font-spaceBold text-2xl">
             AirTrack
           </Text>
         </View>
@@ -115,7 +116,7 @@ const Dashboard = () => {
               size={14}
             />
           </View>
-          <Text className="text-[#06b6d4] dark:text-[#00ffd1] font-spaceBold text-2xl">
+          <Text className="text-[#1bcfb4] dark:text-[#00ffd1] font-spaceBold text-2xl">
             12
           </Text>
         </View>
@@ -126,7 +127,7 @@ const Dashboard = () => {
             </Text>
             <Ionicons name="sparkles-outline" color="#8b5cf6" size={14} />
           </View>
-          <Text className="text-[#06b6d4] dark:text-[#00ffd1] font-spaceBold text-2xl">
+          <Text className=" text-[#1bcfb4] dark:text-[#00ffd1] font-spaceBold text-2xl">
             24
           </Text>
         </View>
@@ -138,11 +139,11 @@ const Dashboard = () => {
           <Text className="text-base text-[#020617] dark:text-[#e6f0ff] font-spaceBold">
             Active Drops
           </Text>
-          <Text className="text-sm text-[#06b6d4] dark:text-[#00ffd1] font-spaceMedium">
+          <Text className="text-sm text-[#009e86] dark:text-[#00ffd1] font-spaceMedium">
             View all
           </Text>
         </View>
-        <View className="flex-1">
+        <View className="flex-1 mb-4">
           {/* flatlist */}
           <FlatList
             data={DATA}
@@ -157,7 +158,7 @@ const Dashboard = () => {
         </View>
       </View>
       <Pressable
-        className="w-12 h-12 bg-[#09b0dc] dark:bg-[#00ffd1] rounded-full items-center justify-center absolute bottom-4 right-4"
+        className="w-12 h-12 bg-[#1bcfb4] dark:bg-[#00ffd1] rounded-full items-center justify-center absolute bottom-4 right-4"
         onPress={() => router.push("/submit")}
       >
         <MaterialCommunityIcons name="plus" size={30} color="black" />

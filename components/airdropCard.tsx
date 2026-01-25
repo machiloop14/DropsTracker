@@ -4,7 +4,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 
-const colors = ["#ffd166", "#00ffd1", "#f59e0b", "#06b6d4"];
+const colors = ["#ffd166", "#1bcfb4", "#f59e0b", "#06b6d4"];
 
 const AirdropCard = ({ item, index }: AirdropCardProps) => {
   const { colorScheme } = useColorScheme();
@@ -20,10 +20,10 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
           <Text className="font-spaceBold text-base text-[#020617] dark:text-white">
             {item.name}
           </Text>
-          <View className="bg-[#06b6d414] dark:bg-[##102b3a] p-1 rounded-md font-spaceSemibold">
+          <View className="bg-[#f6f5f3] dark:bg-[#102b3a] p-1 rounded-full px-1.5 py-1.5 font-spaceSemibold">
             <Text
-              className="font-spaceRegular text-xs text-[#06b6d4]
-                      dark:text-[#00ffd1] uppercase"
+              className=" font-spaceRegular font-space text-xs text-[#009e86]
+                      dark:text-[#00ffd1] uppercase "
             >
               {item.type}
             </Text>
@@ -34,7 +34,7 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
           width={4}
           fill={item.percentage}
           rotation={0}
-          tintColor={colorScheme == "dark" ? "#00ffd1" : "#06b6d4"}
+          tintColor={colorScheme == "dark" ? "#00ffd1" : "#1bcfb4"}
           backgroundColor={colorScheme == "dark" ? "#2b1f4a" : "#e2e8f0"}
         >
           {() => (

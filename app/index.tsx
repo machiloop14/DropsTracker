@@ -25,11 +25,11 @@ export default function Index() {
   return (
     <View className="flex-1 items-center px-8 justify-center bg-[#f4f8f8] dark:bg-[#0f0f28] gap-14">
       <View className="items-center gap-4 mx-auto">
-        <View className="bg-[#0dccf2] dark:bg-[#0dccf2]/10 px-3 py-3 rounded-2xl dark:border dark:border-[#0dccf299]">
+        <View className="bg-transparent dark:bg-[#102b3a] px-3 py-3 rounded-2xl dark:border dark:border-[#00e5c4]">
           <MaterialIcons
             name="rocket-launch"
             size={50}
-            color={colorScheme == "dark" ? "#0dccf2" : "#ffffff"}
+            color={colorScheme == "dark" ? "#00ffd1" : "#1bcfb4"}
           />
         </View>
         <Text className="text-[#101f22] dark:text-white font-spaceBold text-4xl">
@@ -69,7 +69,7 @@ export default function Index() {
           By continuing, you agree to our{" "}
         </Text>
         <Text
-          className="font-spaceSemibold text-sm dark:text-[#0dccf299] text-black underline dark:no-underline
+          className="font-spaceSemibold text-sm dark:text-[#1bcfb4] text-black underline dark:no-underline
         "
         >
           Terms of Service
@@ -78,7 +78,7 @@ export default function Index() {
           {" "}
           and{" "}
         </Text>
-        <Text className=" font-spaceSemibold text-sm dark:text-[#0dccf299] text-black underline dark:no-underline">
+        <Text className=" font-spaceSemibold text-sm dark:text-[#1bcfb4] text-black underline dark:no-underline">
           Privacy Policy.
         </Text>
       </View>
