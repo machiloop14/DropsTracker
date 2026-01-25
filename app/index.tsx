@@ -25,11 +25,11 @@ export default function Index() {
   return (
     <View className="flex-1 items-center px-8 justify-center bg-[#f4f8f8] dark:bg-[#0f0f28] gap-14">
       <View className="items-center gap-4 mx-auto">
-        <View className="bg-transparent dark:bg-[#102b3a] px-3 py-3 rounded-2xl dark:border dark:border-[#00e5c4]">
+        <View className="bg-[#1bcfb4] dark:bg-[#102b3a] px-3 py-3 rounded-2xl dark:border dark:border-[#00e5c4]">
           <MaterialIcons
             name="rocket-launch"
             size={50}
-            color={colorScheme == "dark" ? "#00ffd1" : "#1bcfb4"}
+            color={colorScheme == "dark" ? "#00ffd1" : "#fff"}
           />
         </View>
         <Text className="text-[#101f22] dark:text-white font-spaceBold text-4xl">
@@ -48,7 +48,7 @@ export default function Index() {
           />
         ) : (
           <Image
-            source={require("../assets/images/login.png")}
+            source={require("../assets/images/lightHome.png")}
             className="max-w-full  h-52 rounded-md"
             resizeMode="cover"
           />
