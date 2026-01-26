@@ -1,4 +1,5 @@
 import SettingsCard from "@/components/settingsCard";
+import ToggleSwitch from "@/components/toggleSwitch";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "expo-status-bar";
@@ -56,11 +57,7 @@ const Settings = () => {
                 iconBg={colorScheme == "light" ? "#f6eefe" : "#1e1e3b"}
                 iconSource="ionicon"
               >
-                <MaterialCommunityIcons
-                  name="toggle-switch"
-                  size={40}
-                  color={colorScheme == "light" ? "#1bcfb4" : "#00ffd1"}
-                />
+                <ToggleSwitch />
               </SettingsCard>
             </View>
           </View>
@@ -80,11 +77,7 @@ const Settings = () => {
                 iconSource="material"
                 styles="border-b border-b-[#ebebeb] dark:border-b-0"
               >
-                <MaterialCommunityIcons
-                  name="toggle-switch"
-                  size={40}
-                  color={colorScheme == "light" ? "#1bcfb4" : "#00ffd1"}
-                />
+                <ToggleSwitch />
               </SettingsCard>
               <SettingsCard
                 title="Export Data"
