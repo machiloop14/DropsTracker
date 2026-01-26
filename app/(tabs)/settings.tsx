@@ -2,12 +2,15 @@ import SettingsCard from "@/components/settingsCard";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "nativewind";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Settings = () => {
   const insets = useSafeAreaInsets();
+
+  const { colorScheme } = useColorScheme();
 
   return (
     <View
@@ -24,9 +27,9 @@ const Settings = () => {
         {/* header */}
 
         {/* main content */}
-        <View className="mt-6 gap-10">
+        <View className="mt-6 gap-6">
           {/* preferences */}
-          <View>
+          <View className="gap-2">
             <Text className="uppercase text-[#8b93b8]  text-base font-spaceMedium dark:text-white ">
               preferences{" "}
             </Text>
@@ -35,35 +38,35 @@ const Settings = () => {
                 title="notifications"
                 subtitle="Alerts & reminders"
                 iconName="bell-outline"
-                iconColor="#1bcfb4"
-                iconBg="#efeffe"
+                iconColor={colorScheme == "light" ? "#1bcfb4" : "#00ffd1"}
+                iconBg={colorScheme == "light" ? "#efeffe" : "#171f3b"}
                 iconSource="material"
-                styles="border-b border-b-[#ebebeb]"
+                styles="border-b border-b-[#ebebeb] dark:border-b-0"
               >
                 <MaterialCommunityIcons
                   name="chevron-right"
                   size={20}
-                  color="#8b93b8"
+                  color={colorScheme == "light" ? "#8b93b8" : "#9aa7c7"}
                 />
               </SettingsCard>
               <SettingsCard
                 title="dark mode"
                 iconName="moon-outline"
                 iconColor="#a855f7"
-                iconBg="#f6eefe"
+                iconBg={colorScheme == "light" ? "#f6eefe" : "#1e1e3b"}
                 iconSource="ionicon"
               >
                 <MaterialCommunityIcons
                   name="toggle-switch"
                   size={40}
-                  color="#1bcfb4"
+                  color={colorScheme == "light" ? "#1bcfb4" : "#00ffd1"}
                 />
               </SettingsCard>
             </View>
           </View>
 
           {/* data management */}
-          <View>
+          <View className="gap-2">
             <Text className="uppercase text-[#8b93b8] text-base font-spaceMedium dark:text-white">
               Data Management{" "}
             </Text>
@@ -72,31 +75,35 @@ const Settings = () => {
                 title="Backup & Sync"
                 subtitle="Last synced: 2m ago"
                 iconName="cloud-outline"
-                iconColor="#1bcfb4"
-                iconBg="#e8f9ef"
+                iconColor={colorScheme == "light" ? "#1bcfb4" : "#22c55e"}
+                iconBg={colorScheme == "light" ? "#e8f9ef" : "#10292c"}
                 iconSource="material"
-                styles="border-b border-b-[#ebebeb]"
+                styles="border-b border-b-[#ebebeb] dark:border-b-0"
               >
                 <MaterialCommunityIcons
                   name="toggle-switch"
                   size={40}
-                  color="#1bcfb4"
+                  color={colorScheme == "light" ? "#1bcfb4" : "#00ffd1"}
                 />
               </SettingsCard>
               <SettingsCard
                 title="Export Data"
                 iconName="file-code-outline"
-                iconColor="#ef4444"
-                iconBg="#fdecec"
+                iconColor={colorScheme == "light" ? "#ef4444" : "#e94343"}
+                iconBg={colorScheme == "light" ? "#fdecec" : "#251c29"}
                 iconSource="material"
               >
-                <AntDesign name="download" size={20} color="#8b93b8" />
+                <AntDesign
+                  name="download"
+                  size={20}
+                  color={colorScheme == "light" ? "#8b93b8" : "#9aa7c7"}
+                />
               </SettingsCard>
             </View>
           </View>
 
           {/* account */}
-          <View>
+          <View className="gap-2">
             <Text className="uppercase text-[#8b93b8] text-base font-spaceMedium dark:text-white">
               Account{" "}
             </Text>
@@ -104,14 +111,10 @@ const Settings = () => {
               <SettingsCard
                 title="Alex Farmer"
                 subtitle="alex@crypto.mail"
-                iconName="person-outline"
-                iconColor="#1bcfb4"
-                iconBg="#efeffe"
-                iconSource="ionicons"
-                styles="border-b border-b-[#ebebeb]"
+                imgSource="https://storage.googleapis.com/banani-avatars/avatar%2Fmale%2F25-35%2FEuropean%2F3"
               >
-                <Pressable className="bg-[#fdecec] px-4 py-2 rounded-md">
-                  <Text className="font-spaceRegular text-[#ef4444]">
+                <Pressable className="bg-[#fdecec] dark:bg-[#251c29] px-4 py-2 rounded-md">
+                  <Text className="font-spaceSemibold text-[#ef4444] dark:text-[#ee5074] text-base ">
                     Log out
                   </Text>
                 </Pressable>
@@ -121,7 +124,7 @@ const Settings = () => {
         </View>
         {/* main content */}
       </View>
-      <Text className="mb-4 text-center text-[#8b93b8]">
+      <Text className="mb-4 text-center text-[#8b93b8] dark:text-[#9aa7c7]">
         Airdrop Tracker v1.0.0
       </Text>
       {/* <ThemeToggler /> */}
