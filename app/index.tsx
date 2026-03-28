@@ -1,6 +1,7 @@
 import ThemeToggler from "@/components/themeToggler";
 import { signInWithGoogle } from "@/lib/signInWithGoogle";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import axios from "axios";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -14,11 +15,30 @@ export default function Index() {
     try {
       const res = await signInWithGoogle();
       // TODO: send idToken to your backend
+      if (res && res.msg == "success") {
+        const idToken = res.response.data.idToken;
+
+        const loginRes = await axios.post(
+          "http://10.21.57.20:8083/auth/login",
+          { idToken },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log(loginRes.data);
+        console.log("log in successful");
+        router.push("/dashboard");
+      }
       // router.replace("/(tabs)")
-      console.log("log in successful");
-      router.push("/dashboard");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data?.message || "server error");
+      } else {
+        console.log(error);
+      }
     }
   };
 
