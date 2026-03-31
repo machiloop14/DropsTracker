@@ -10,6 +10,7 @@ import { Image, Pressable, Text, View } from "react-native";
 export default function Index() {
   const router = useRouter();
   const { colorScheme } = useColorScheme();
+  const address = "10.68.82.20";
 
   const handleGoogleLogin = async () => {
     try {
@@ -17,9 +18,9 @@ export default function Index() {
       // TODO: send idToken to your backend
       if (res && res.msg == "success") {
         const idToken = res.response.data.idToken;
-
+        console.log(idToken);
         const loginRes = await axios.post(
-          "http://10.21.57.20:8083/auth/login",
+          `http://${address}:8083/auth/login`,
           { idToken },
           {
             headers: {

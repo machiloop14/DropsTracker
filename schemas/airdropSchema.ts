@@ -9,9 +9,8 @@ export const airdropSchema = z.object({
   startDate: z.date().refine(Boolean, {
     message: "Start date is required",
   }),
-  endDate: z.date().optional(),
-  startAlarm: z.date().optional(),
-  endAlarm: z.date().optional(),
+  endDate: z.date().nullable().optional(),
+  startAlarm: z.date().nullable().optional(),
 });
 
 export type airdropFormType = z.infer<typeof airdropSchema>;

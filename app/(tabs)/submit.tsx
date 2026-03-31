@@ -33,9 +33,8 @@ const Submit = () => {
       repeat: 0,
       category: "",
       startDate: undefined,
-      endDate: undefined,
-      startAlarm: undefined,
-      endAlarm: undefined,
+      endDate: null,
+      startAlarm: null,
     },
   });
 
