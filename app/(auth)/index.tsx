@@ -1,4 +1,7 @@
+import { login } from "@/auth/authService";
 import ThemeToggler from "@/components/themeToggler";
+import { useAuth } from "@/context/useAuth";
+import { useToastNotification } from "@/hooks/useToastNotifications";
 import { signInWithGoogle } from "@/lib/signInWithGoogle";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import axios from "axios";
@@ -10,32 +13,42 @@ import { Image, Pressable, Text, View } from "react-native";
 export default function Index() {
   const router = useRouter();
   const { colorScheme } = useColorScheme();
-  const address = "10.68.82.20";
+  const toast = useToastNotification();
+  const { setUser } = useAuth();
+  const address = "10.11.181.20";
 
   const handleGoogleLogin = async () => {
     try {
       const res = await signInWithGoogle();
+      let idToken;
       // TODO: send idToken to your backend
       if (res && res.msg == "success") {
-        const idToken = res.response.data.idToken;
+        idToken = res.response.data.idToken;
         console.log(idToken);
-        const loginRes = await axios.post(
-          `http://${address}:8083/auth/login`,
-          { idToken },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        console.log(loginRes.data);
-        console.log("log in successful");
-        router.push("/dashboard");
+      } else {
+        toast.danger("Sign in failed. Try Later!");
+        return;
       }
+
+      if (idToken) {
+        const response = await login(idToken);
+
+        console.log(response);
+
+        if (!response.success) {
+          toast.danger("Sign In Failed. Try Later!");
+          return;
+        }
+
+        setUser({ ...response.data });
+        toast.success("log in successful");
+        router.push("/(tabs)/dashboard");
+      }
+
       // router.replace("/(tabs)")
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        toast.danger("Sign in failed. Try Later!");
         console.log(error.response?.data?.message || "server error");
       } else {
         console.log(error);
@@ -63,13 +76,13 @@ export default function Index() {
       <View className="gap-8">
         {colorScheme == "dark" ? (
           <Image
-            source={require("../assets/images/image-wm.png")}
+            source={require("../../assets/images/image-wm.png")}
             className="max-w-full  h-52 rounded-md"
             resizeMode="cover"
           />
         ) : (
           <Image
-            source={require("../assets/images/lightHome.png")}
+            source={require("../../assets/images/lightHome.png")}
             className="max-w-full  h-52 rounded-md"
             resizeMode="cover"
           />
@@ -79,7 +92,7 @@ export default function Index() {
           onPress={handleGoogleLogin}
         >
           <Image
-            source={require("../assets/images/google.png")}
+            source={require("../../assets/images/google.png")}
             className="w-6 h-6"
           />
           <Text className="font-spaceBold text-lg">Sign in with Google</Text>
