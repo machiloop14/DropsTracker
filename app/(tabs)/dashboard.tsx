@@ -65,11 +65,27 @@ const Dashboard = () => {
     },
   ];
 
+  // const handleTestProtectedRoute = async () => {
+  //   const res = await api.get("/auth/protected");
+
+  //   console.log("protected route: " + res.data.message);
+  // };
+
   return (
     <View
       style={{ paddingTop: insets.top }}
       className="bg-[#f7f9ff] dark:bg-[#0b1020] flex-1 px-5"
     >
+      {/* <Pressable
+        className="dark:bg-white flex-row items-center justify-center gap-3 py-4 rounded-xl border border-[#e5e7eb] bg-white dark:border-0"
+        onPress={handleTestProtectedRoute}
+      >
+        <Image
+          source={require("../../assets/images/google.png")}
+          className="w-6 h-6"
+        />
+        <Text className="font-spaceBold text-lg">Test Protected route</Text>
+      </Pressable> */}
       {/* header */}
       <View className="flex flex-row justify-between items-center pt-8 pb-2">
         <View className="flex-row gap-2 items-center">

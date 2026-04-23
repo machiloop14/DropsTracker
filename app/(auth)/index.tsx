@@ -1,4 +1,3 @@
-import { login } from "@/auth/authService";
 import ThemeToggler from "@/components/themeToggler";
 import { useAuth } from "@/context/useAuth";
 import { useToastNotification } from "@/hooks/useToastNotifications";
@@ -14,7 +13,7 @@ export default function Index() {
   const router = useRouter();
   const { colorScheme } = useColorScheme();
   const toast = useToastNotification();
-  const { setUser } = useAuth();
+  const { login } = useAuth();
   const address = "10.11.181.20";
 
   const handleGoogleLogin = async () => {
@@ -35,14 +34,13 @@ export default function Index() {
 
         console.log(response);
 
-        if (!response.success) {
+        if (!response) {
           toast.danger("Sign In Failed. Try Later!");
           return;
         }
 
-        setUser({ ...response.data });
         toast.success("log in successful");
-        router.push("/(tabs)/dashboard");
+        // router.push("/(tabs)/dashboard");
       }
 
       // router.replace("/(tabs)")

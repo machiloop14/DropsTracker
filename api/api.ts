@@ -5,7 +5,6 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
-import { triggerLogout, triggerUserUpdate } from "@/auth/authEvents";
 import {
   clearTokens,
   getAccessToken,
@@ -18,34 +17,17 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-// Expected response from refresh endpoint
-// interface RefreshResponse {
-//   newAccessToken: string;
-//   newRefreshToken: string;
-//   user: {
-//     id: string;
-//     email: string;
-//     name: string;
-//     avatar: string;
-//   };
-// }
 interface RefreshResponse {
   success: boolean;
   message: string;
   data: {
     newAccessToken: string;
     newRefreshToken: string;
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      avatar?: string;
-    };
   };
 }
 
 const api: AxiosInstance = axios.create({
-  baseURL: "http://10.117.163.20:8083",
+  baseURL: "http://10.233.60.20:8083",
 });
 
 // =========================
@@ -53,6 +35,8 @@ const api: AxiosInstance = axios.create({
 // =========================
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = getAccessToken();
+
+  console.log("api initial token check: " + token);
 
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -112,15 +96,15 @@ api.interceptors.response.use(
         const refreshToken = await getRefreshToken();
 
         const res = await axios.post<RefreshResponse>(
-          "http://10.117.163.20:8083/auth/refresh",
+          "http://10.233.60.20:8083/auth/refresh",
           { token: refreshToken }
         );
 
-        const { newAccessToken, newRefreshToken, user } = res.data.data;
+        const { newAccessToken, newRefreshToken } = res.data.data;
         console.log("api newaccesstoken: " + newAccessToken);
+        console.log("api newrefreshtoken: " + newRefreshToken);
 
         await setTokens(newAccessToken, newRefreshToken);
-        triggerUserUpdate(user);
 
         isRefreshing = false;
         onRefreshed(newAccessToken);
@@ -133,8 +117,6 @@ api.interceptors.response.use(
       } catch (err) {
         isRefreshing = false;
         await clearTokens();
-        triggerLogout();
-
         return Promise.reject(err);
       }
     }
