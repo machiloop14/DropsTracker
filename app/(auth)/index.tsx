@@ -7,7 +7,8 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import { Image, Pressable, Text, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, Image, Pressable, Text, View } from "react-native";
 
 export default function Index() {
   const router = useRouter();
@@ -15,9 +16,11 @@ export default function Index() {
   const toast = useToastNotification();
   const { login } = useAuth();
   const address = "10.11.181.20";
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
   const handleGoogleLogin = async () => {
     try {
+      setLoginLoading(true);
       const res = await signInWithGoogle();
       let idToken;
       // TODO: send idToken to your backend
@@ -51,6 +54,8 @@ export default function Index() {
       } else {
         console.log(error);
       }
+    } finally {
+      setLoginLoading(false);
     }
   };
 
@@ -88,12 +93,21 @@ export default function Index() {
         <Pressable
           className="dark:bg-white flex-row items-center justify-center gap-3 py-4 rounded-xl border border-[#e5e7eb] bg-white dark:border-0"
           onPress={handleGoogleLogin}
+          disabled={loginLoading}
         >
-          <Image
-            source={require("../../assets/images/google.png")}
-            className="w-6 h-6"
-          />
-          <Text className="font-spaceBold text-lg">Sign in with Google</Text>
+          {!loginLoading ? (
+            <>
+              <Image
+                source={require("../../assets/images/google.png")}
+                className="w-6 h-6"
+              />
+              <Text className="font-spaceBold text-lg">
+                Sign in with Google
+              </Text>
+            </>
+          ) : (
+            <ActivityIndicator size="large" color="#0000ff" />
+          )}
         </Pressable>
       </View>
       <View className="flex-row flex-wrap justify-center">
