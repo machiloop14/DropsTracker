@@ -141,7 +141,7 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <ToastProvider>
+      <ToastProvider offset={40}>
         <SafeAreaProvider>
           <Stack screenOptions={{ headerShown: false }} />
         </SafeAreaProvider>

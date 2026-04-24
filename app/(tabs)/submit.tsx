@@ -1,22 +1,33 @@
+import api from "@/api/api";
 import FormDateTimeInput from "@/components/formDateTimeInput";
 import FormPickerInput from "@/components/formPickerInput";
 import FormTextInput from "@/components/formTextInput";
 import ThemeToggler from "@/components/themeToggler";
+import { useToastNotification } from "@/hooks/useToastNotifications";
 import { airdropFormType, airdropSchema } from "@/schemas/airdropSchema";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import data from "../../data/category.json";
 
 const Submit = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const toast = useToastNotification();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { colorScheme } = useColorScheme();
 
@@ -24,6 +35,7 @@ const Submit = () => {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     resolver: zodResolver(airdropSchema),
     defaultValues: {
@@ -38,7 +50,30 @@ const Submit = () => {
     },
   });
 
-  const onSubmit = (data: airdropFormType) => console.log(data);
+  const onSubmit = async (data: airdropFormType) => {
+    try {
+      setLoading(true);
+      const res = await api.post("/drops", data);
+
+      if (!res.data.success) {
+        console.log(res.data.message);
+        toast.danger("Error adding airdrop");
+      }
+
+      toast.success("Airdrop added successfully");
+      reset();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errors = error.response?.data?.errors;
+
+        toast.danger(errors[0].message);
+      } else {
+        toast.danger("some error occurred!");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View className="flex-1 bg-[#f7f9ff] dark:bg-[#0b1020]">
@@ -49,6 +84,7 @@ const Submit = () => {
         <Pressable
           className="px-3 py-3 bg-white dark:bg-[#0e1626] rounded-lg shadow-black elevation-sm"
           onPress={() => router.push("/dashboard")}
+          disabled={loading}
         >
           <MaterialCommunityIcons
             name="arrow-left"
@@ -134,10 +170,15 @@ const Submit = () => {
           <Pressable
             onPress={handleSubmit(onSubmit)}
             className="bg-[#1bcfb4] dark:bg-[#00ffd1] py-4 rounded-xl mb-4 mt-2"
+            disabled={loading}
           >
-            <Text className="text-center text-[#001018] font-spaceBold text-lg">
-              Save Airdrop
-            </Text>
+            {!loading ? (
+              <Text className="text-center text-[#001018] font-spaceBold text-lg">
+                Save Airdrop
+              </Text>
+            ) : (
+              <ActivityIndicator color="#001018" />
+            )}
           </Pressable>
         </ScrollView>
       </View>
