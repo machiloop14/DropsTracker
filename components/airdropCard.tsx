@@ -18,28 +18,28 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
       <View className="flex-row justify-between items-center py-6">
         <View>
           <Text className="font-spaceBold text-base text-[#020617] dark:text-white">
-            {item.name}
+            {item.projectName}
           </Text>
           <View className="bg-[#f6f5f3] dark:bg-[#102b3a] p-1 rounded-full px-1.5 py-1.5 font-spaceSemibold">
             <Text
               className=" font-spaceRegular font-space text-xs text-[#009e86]
                       dark:text-[#00ffd1] uppercase "
             >
-              {item.type}
+              {item.category}
             </Text>
           </View>
         </View>
         <AnimatedCircularProgress
           size={30}
           width={4}
-          fill={item.percentage}
+          fill={30}
           rotation={0}
           tintColor={colorScheme == "dark" ? "#00ffd1" : "#1bcfb4"}
           backgroundColor={colorScheme == "dark" ? "#2b1f4a" : "#e2e8f0"}
         >
           {() => (
             <Text className="font-spaceBold text-[10px] text-[#020617] dark:text-[#e6f0ff] ">
-              {item.percentage}
+              {30}
             </Text>
           )}
         </AnimatedCircularProgress>
@@ -51,11 +51,11 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
             style={{ backgroundColor: color }}
           ></View>
           <Text className="text-base font-spaceRegular text-[#020617] dark:text-white">
-            {item.status}
+            Due in 2h
           </Text>
         </View>
         <Text className="font-spaceRegular text-xs text-[#6b7280] dark:text-[#e6e9ff]">
-          {item.frequency.toUpperCase()}
+          WEEKLY
         </Text>
       </View>
     </View>

@@ -1,3 +1,4 @@
+import api from "@/api/api";
 import AirdropCard from "@/components/airdropCard";
 import ThemeToggler from "@/components/themeToggler";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -5,14 +6,74 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+interface dataType {
+  projectName: string;
+  category: string;
+  endDate: Date | null;
+  id: string;
+  notes: string | null;
+  repeat: number;
+  startAlarm: Date | null;
+  startDate: Date;
+  userId: string;
+  walletAddress: string;
+}
 
 const Dashboard = () => {
   const insets = useSafeAreaInsets();
   const { colorScheme } = useColorScheme();
   const router = useRouter();
+
+  const [data, setData] = useState<dataType[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalData, setTotalData] = useState<number | null>();
+
+  const fetchAirdrops = async (page: number) => {
+    try {
+      const res = await api.get(`/drops?page=${page}&limit=5`);
+
+      if (!res.data.success) {
+        console.log("res success is false");
+        return;
+      }
+      console.log(res.data.data[0]);
+
+      // setData((prevData) => [...prevData, ...res.data.data]);
+      setData((prev) => {
+        const merged = [...prev, ...res.data.data];
+
+        return merged.filter(
+          (item, index, self) =>
+            index === self.findIndex((d) => d.id === item.id)
+        );
+      });
+      // setData(res.data.data);
+      setCurrentPage(page);
+      setTotalPages(res.data.pagination.totalPages);
+      setTotalData(res.data.pagination.total);
+      console.log("total pages 1: " + totalPages);
+    } catch (error) {
+      console.log("dashboard error: " + error);
+    } finally {
+      console.log(data?.length);
+    }
+  };
+
+  useEffect(() => {
+    fetchAirdrops(1);
+    console.log("total pages 2: " + totalPages);
+  }, []);
+
+  const fetchMoreAirdrops = (page: number) => {
+    if (page > totalPages) return;
+
+    fetchAirdrops(page);
+  };
 
   const DATA = [
     {
@@ -65,27 +126,11 @@ const Dashboard = () => {
     },
   ];
 
-  // const handleTestProtectedRoute = async () => {
-  //   const res = await api.get("/auth/protected");
-
-  //   console.log("protected route: " + res.data.message);
-  // };
-
   return (
     <View
       style={{ paddingTop: insets.top }}
       className="bg-[#f7f9ff] dark:bg-[#0b1020] flex-1 px-5"
     >
-      {/* <Pressable
-        className="dark:bg-white flex-row items-center justify-center gap-3 py-4 rounded-xl border border-[#e5e7eb] bg-white dark:border-0"
-        onPress={handleTestProtectedRoute}
-      >
-        <Image
-          source={require("../../assets/images/google.png")}
-          className="w-6 h-6"
-        />
-        <Text className="font-spaceBold text-lg">Test Protected route</Text>
-      </Pressable> */}
       {/* header */}
       <View className="flex flex-row justify-between items-center pt-8 pb-2">
         <View className="flex-row gap-2 items-center">
@@ -133,7 +178,7 @@ const Dashboard = () => {
             />
           </View>
           <Text className="text-[#1bcfb4] dark:text-[#00ffd1] font-spaceBold text-2xl">
-            12
+            10
           </Text>
         </View>
         <View className="bg-white dark:bg-[#0f1726] w-[47%] py-4 px-3 rounded-lg gap-4">
@@ -144,7 +189,7 @@ const Dashboard = () => {
             <Ionicons name="sparkles-outline" color="#8b5cf6" size={14} />
           </View>
           <Text className=" text-[#1bcfb4] dark:text-[#00ffd1] font-spaceBold text-2xl">
-            24
+            {totalData ? totalData : "0"}
           </Text>
         </View>
       </View>
@@ -162,11 +207,17 @@ const Dashboard = () => {
         <View className="flex-1 mb-4">
           {/* flatlist */}
           <FlatList
-            data={DATA}
+            data={data}
+            keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => (
               <AirdropCard item={item} index={index} />
+              // <Text className="text-white bg-red-400 py-24">
+              //   {item?.projectName}
+              // </Text>
             )}
             showsVerticalScrollIndicator={false}
+            onEndReached={() => fetchMoreAirdrops(currentPage + 1)}
+            onEndReachedThreshold={0.4}
             className="mb-2"
           />
 
