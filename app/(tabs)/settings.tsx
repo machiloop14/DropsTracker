@@ -1,26 +1,61 @@
+import api from "@/api/api";
+import { getRefreshToken } from "@/auth/authStore";
 import SettingsCard from "@/components/settingsCard";
 import ToggleSwitch from "@/components/toggleSwitch";
 import { useAuth } from "@/context/useAuth";
 import { useToastNotification } from "@/hooks/useToastNotifications";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import { useState } from "react";
-import { Modal, Pressable, Text, View } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, Modal, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Settings = () => {
   const insets = useSafeAreaInsets();
-  const { user } = useAuth();
+  const { user , logout} = useAuth();
+  const router = useRouter()
 
   console.log(user)
 
   const toast = useToastNotification();
 
   const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
+  const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
 
   const { colorScheme } = useColorScheme();
+  
+
+  const handleUserLogout = async ()=> {
+    try {
+      setIsLogoutLoading(true)
+      console.log("hiii")
+      let refreshToken = await getRefreshToken();
+
+      const res = await api.post("/auth/logout", {refreshToken})
+
+      if (!res.data.success) {
+        console.log(res.data.message);
+        toast.danger("Error logging out");
+      }
+
+      await logout()
+      setIsLogoutLoading(false)
+      refreshToken = await getRefreshToken()
+
+
+      toast.success("Logout successfull");
+      router.replace("/(auth)")
+      
+      
+    } catch (error) {
+      setIsLogoutLoading(false)
+      console.log(error)
+      toast.danger("Logout failed. Try again later!")
+    }
+  }
 
   return (
     <View
@@ -44,14 +79,15 @@ const Settings = () => {
             <View>
               <Text className="text-[#818181]">Are you sure you want to log out?</Text>
             </View>
+            {isLogoutLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
             <View className="flex flex-row justify-between mt-2">
               <Pressable className="bg-[#FADCDD] px-6 py-2 rounded-md" onPress={()=> setLogoutModalVisible(false)}>
                 <Text className="text-red-800 font-spaceSemibold">Cancel</Text>
               </Pressable>
-              <Pressable className="bg-[#E31523] px-6 py-2 rounded-md">
+              <Pressable className="bg-[#E31523] px-6 py-2 rounded-md" onPress={handleUserLogout}>
                 <Text className="text-white font-spaceSemibold">Confirm</Text>
               </Pressable>
-            </View>
+            </View>}
           </View>
         </View>
       </Modal>
