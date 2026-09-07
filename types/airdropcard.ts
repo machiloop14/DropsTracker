@@ -1,10 +1,14 @@
 type itemProps = {
+  projectName: string;
+  category: string;
+  endDate: Date | null;
   id: string;
-  name: string;
-  type: string;
-  status: string;
-  percentage: number;
-  frequency: string;
+  notes: string | null;
+  repeat: number;
+  startAlarm: Date | null;
+  startDate: Date;
+  userId: string;
+  walletAddress: string;
 };
 
 export type AirdropCardProps = {

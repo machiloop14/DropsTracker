@@ -48,7 +48,7 @@ const SettingsCard = ({ ...card }: settingsCardProp) => {
             {card.title}
           </Text>
           {card.subtitle && (
-            <Text className="font-spaceRegular text-[#8b93b8] dark:text-[#9aa7c7]">
+            <Text className="font-spaceRegular text-[#8b93b8] dark:text-[#9aa7c7] text-sm ">
               {card.subtitle}
             </Text>
           )}

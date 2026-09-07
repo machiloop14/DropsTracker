@@ -17,7 +17,7 @@ const AirdropCard = ({ item, index }: AirdropCardProps) => {
     >
       <View className="flex-row justify-between items-center py-6">
         <View>
-          <Text className="font-spaceBold text-base text-[#020617] dark:text-white">
+          <Text className="font-spaceBold text-base text-[#020617] dark:text-white capitalize">
             {item.projectName}
           </Text>
           <View className="bg-[#f6f5f3] dark:bg-[#102b3a] p-1 rounded-full px-1.5 py-1.5 font-spaceSemibold">
