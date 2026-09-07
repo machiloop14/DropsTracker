@@ -27,7 +27,7 @@ interface RefreshResponse {
 }
 
 const api: AxiosInstance = axios.create({
-  baseURL: "http://10.159.219.20:8083",
+  baseURL: "http://10.171.105.116:8083",
 });
 
 // =========================
@@ -96,7 +96,7 @@ api.interceptors.response.use(
         const refreshToken = await getRefreshToken();
 
         const res = await axios.post<RefreshResponse>(
-          "http://10.159.219.20:8083/auth/refresh",
+          "http://10.171.105.116:8083/auth/refresh",
           { token: refreshToken }
         );
 

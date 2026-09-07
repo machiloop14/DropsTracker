@@ -6,13 +6,15 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Settings = () => {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
+
+  console.log(user)
 
   const toast = useToastNotification();
 
@@ -27,21 +29,27 @@ const Settings = () => {
     >
       <Modal
         visible={logoutModalVisible}
-        className="w-8 h-8 absolute top-1/2 left-1/2"
+        className=" absolute top-1/2 left-1/2 "
         transparent={true}
         onRequestClose={() => setLogoutModalVisible(false)}
       >
-        <View className="flex-1 justify-center items-center">
-          <View className="bg-white flex gap-2 px-2 py-2">
-            <View>
-              <Text className="text-dark text-center">Confirm Logout</Text>
+        <View className="flex-1 justify-center items-center ">
+          <View className="bg-white flex px-8 py-8 rounded-xl gap-1">
+            <View className="bg-red-500 flex items-center justify-center rounded-full w-8 h-8 self-center">
+              <MaterialCommunityIcons name="exclamation-thick" size={20} color="white"/>
             </View>
-            <View className="flex flex-row gap-2">
-              <Pressable className="bg-red-400 px-4 py-2">
-                <Text>Cancel</Text>
+            <View>
+              <Text className="text-dark text-center font-spaceBold text-lg ">Confirm Logout</Text>
+            </View>
+            <View>
+              <Text className="text-[#818181]">Are you sure you want to log out?</Text>
+            </View>
+            <View className="flex flex-row justify-between mt-2">
+              <Pressable className="bg-[#FADCDD] px-6 py-2 rounded-md" onPress={()=> setLogoutModalVisible(false)}>
+                <Text className="text-red-800 font-spaceSemibold">Cancel</Text>
               </Pressable>
-              <Pressable className="bg-blue-400 px-4 py-2">
-                <Text>Confirm</Text>
+              <Pressable className="bg-[#E31523] px-6 py-2 rounded-md">
+                <Text className="text-white font-spaceSemibold">Confirm</Text>
               </Pressable>
             </View>
           </View>
@@ -51,7 +59,7 @@ const Settings = () => {
         {/* header */}
         <View className="border-b border-[#ebebeb] pb-4 dark:border-b-0 ">
           <Text className=" font-spaceBold text-2xl dark:text-[#e6f0ff]">
-            Reminders
+            Settings
           </Text>
         </View>
         {/* header */}
@@ -134,7 +142,7 @@ const Settings = () => {
                 <SettingsCard
                   title={user.name}
                   subtitle={user.email}
-                  imgSource="https://storage.googleapis.com/banani-avatars/avatar%2Fmale%2F25-35%2FEuropean%2F3"
+                  imgSource={user.avatar}
                 >
                   <Pressable
                     className="bg-[#fdecec] dark:bg-[#251c29] px-4 py-2 rounded-md"
